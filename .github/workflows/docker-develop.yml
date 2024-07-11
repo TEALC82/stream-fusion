@@ -1,9 +1,11 @@
-name: Build and Push Docker image to GitHub Packages on Dev Branch
+
+name: Build and Push Docker image
 
 on:
-  push:
-    branches:
-      - develop
+  workflow_dispatch:
+  #push:
+  #  branches:
+   #   - master
 
 jobs:
   build:
@@ -26,7 +28,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -35,4 +37,4 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/limedrive/stream-fusion:develop
+            ghcr.io/tealc82/stream-fusion:develop
