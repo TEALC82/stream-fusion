@@ -40,6 +40,7 @@ class JackettService:
             if isinstance(media, Movie):
                 result = self.__search_movie_indexer(media, indexer)
             elif isinstance(media, Series):
+                self.logger.info(f"search_series_indexer : {media}")
                 result = self.__search_series_indexer(media, indexer)
             else:
                 raise TypeError("Only Movie and Series is allowed as media!")
