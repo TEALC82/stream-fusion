@@ -27,7 +27,7 @@ class TMDB(MetadataProvider):
                         languages=self.config['languages']
                     )
                 else:
-                    if data["tv_results"][0]["origin_country"] = "JP":
+                    if data["tv_results"][0]["origin_country"] == "JP":
                         atitles = [self.replace_weird_characters(data["tv_results"][0]["name"])]
                         parts = atitles.split(':', 1)
                         update_titles = parts[0].strip()
@@ -45,7 +45,7 @@ class TMDB(MetadataProvider):
                 if type == "movie":
                     result.titles.append(self.replace_weird_characters(data["movie_results"][0]["title"]))
                 else:
-                    if data["tv_results"][0]["origin_country"] = "JP":
+                    if data["tv_results"][0]["origin_country"] == "JP":
                         atitles = [self.replace_weird_characters(data["tv_results"][0]["name"])]
                         parts = atitles.split(':', 1)
                         update_titles = parts[0].strip()
