@@ -120,7 +120,6 @@ class JackettService:
     def __search_series_indexer(self, series, indexer):
         season = str(int(series.season.replace('S', '')))
         episode = str(int(series.episode.replace('E', '')))
-        origin = series.origin_country
 
         has_imdb_search_capability = (os.getenv("DISABLE_JACKETT_IMDB_SEARCH") != "true"
                                       and indexer.tv_search_capatabilities is not None
@@ -141,17 +140,11 @@ class JackettService:
         results = []
 
         for index, lang in enumerate(languages):
-            if origin == "JP":
-                parts = titles[index].split(':', 1)
-                mytitle = parts[0].strip()
-            else:
-                mytitle = titles[index]
-
             params = {
                 'apikey': self.__api_key,
                 't': 'tvsearch',
                 'cat': '5000',
-                'q': mytitle,
+                'q': titles[index],
             }
 
             if has_imdb_search_capability:
