@@ -1,10 +1,10 @@
 name: Build and Push Docker image to GitHub Packages on Dev Branch
 
 on:
-  workflow_dispatch:
-  #push:
-    #branches:
-      #- develop
+  #workflow_dispatch:
+  push:
+    branches:
+      - TEALC
 
 jobs:
   build:
