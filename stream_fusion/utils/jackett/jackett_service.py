@@ -40,7 +40,6 @@ class JackettService:
             if isinstance(media, Movie):
                 result = self.__search_movie_indexer(media, indexer)
             elif isinstance(media, Series):
-                self.logger.info(f"search_series_indexer : {media}")
                 result = self.__search_series_indexer(media, indexer)
             else:
                 raise TypeError("Only Movie and Series is allowed as media!")
@@ -121,6 +120,7 @@ class JackettService:
     def __search_series_indexer(self, series, indexer):
         season = str(int(series.season.replace('S', '')))
         episode = str(int(series.episode.replace('E', '')))
+        origin = series.origin_country
 
         has_imdb_search_capability = (os.getenv("DISABLE_JACKETT_IMDB_SEARCH") != "true"
                                       and indexer.tv_search_capatabilities is not None
@@ -141,11 +141,17 @@ class JackettService:
         results = []
 
         for index, lang in enumerate(languages):
+            if origin == "JP":
+                parts = titles[index].split(':', 1)
+                mytitle = parts[0].strip()
+            else:
+                mytitle = titles[index]
+
             params = {
                 'apikey': self.__api_key,
                 't': 'tvsearch',
                 'cat': '5000',
-                'q': titles[index],
+                'q': mytitle,
             }
 
             if has_imdb_search_capability:

@@ -32,6 +32,7 @@ class TMDB(MetadataProvider):
                         titles=[self.replace_weird_characters(data["tv_results"][0]["name"])],
                         season="S{:02d}".format(int(full_id[1])),
                         episode="E{:02d}".format(int(full_id[2])),
+                        origin_country=data["tv_results"][0]["origin_country"]
                         languages=self.config['languages']
                     )
             else:
