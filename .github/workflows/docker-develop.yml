@@ -36,4 +36,4 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/tealc82/stremiofusion:tealc
+            ghcr.io/tealc82/streamfusion:tealc
