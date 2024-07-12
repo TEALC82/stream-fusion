@@ -27,16 +27,9 @@ class TMDB(MetadataProvider):
                         languages=self.config['languages']
                     )
                 else:
-                    if data["tv_results"][0]["origin_country"] == "JP":
-                        atitles = [self.replace_weird_characters(data["tv_results"][0]["name"])]
-                        parts = atitles.split(':', 1)
-                        update_titles = parts[0].strip()
-                    else:
-                        update_titles = [self.replace_weird_characters(data["tv_results"][0]["name"])]
-
                     result = Series(
                         id=id,
-                        titles=update_titles,
+                        titles=[self.replace_weird_characters(data["tv_results"][0]["name"])],
                         season="S{:02d}".format(int(full_id[1])),
                         episode="E{:02d}".format(int(full_id[2])),
                         languages=self.config['languages']
@@ -45,13 +38,7 @@ class TMDB(MetadataProvider):
                 if type == "movie":
                     result.titles.append(self.replace_weird_characters(data["movie_results"][0]["title"]))
                 else:
-                    if data["tv_results"][0]["origin_country"] == "JP":
-                        atitles = [self.replace_weird_characters(data["tv_results"][0]["name"])]
-                        parts = atitles.split(':', 1)
-                        update_titles = parts[0].strip()
-                        result.titles.append(self.replace_weird_characters(update_titles))
-                    else:
-                        result.titles.append(self.replace_weird_characters(data["tv_results"][0]["name"]))
+                    result.titles.append(self.replace_weird_characters(data["tv_results"][0]["name"]))
 
         self.logger.info("Got metadata for " + type + " with id " + id)
         return result
