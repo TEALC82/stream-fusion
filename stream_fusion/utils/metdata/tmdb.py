@@ -32,7 +32,7 @@ class TMDB(MetadataProvider):
                         titles=[self.replace_weird_characters(data["tv_results"][0]["name"])],
                         season="S{:02d}".format(int(full_id[1])),
                         episode="E{:02d}".format(int(full_id[2])),
-                        origin=data["tv_results"][0]["origin_country"],
+                        origin=data["tv_results"][0]["origin_country"][0],
                         languages=self.config['languages']
                     )
             else:
@@ -42,4 +42,5 @@ class TMDB(MetadataProvider):
                     result.titles.append(self.replace_weird_characters(data["tv_results"][0]["name"]))
 
         self.logger.info("Got metadata for " + type + " with id " + id)
+        self.logger.info(">> Origin : " + result.origin + " <<")
         return result

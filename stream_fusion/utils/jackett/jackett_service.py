@@ -25,10 +25,10 @@ class JackettService:
         self.__session = requests.Session()
 
     def search(self, media):
-        parts = media.titles[0].split(':', 1)
-        newtitle = parts[0].strip()
+        parts = media.titles[0].split(':')
+        newtitle = parts[0]
 
-        self.logger.info("Started Jackett search for " + media.type + " " + newtitle + "[" + media.titles[0] + "]")
+        self.logger.info("Started Jackett search for " + media.type + " " + newtitle + " [" + media.titles[0] + "]")
 
         indexers = self.__get_indexers()
         threads = []
@@ -144,8 +144,8 @@ class JackettService:
 
         for index, lang in enumerate(languages):
             if series.origin == "JP":
-                parts = titles[index].split(':', 1)
-                newtitle = parts[0].strip()
+                parts = titles[index].split(':')
+                newtitle = parts[0]
             else:
                 newtitle = titles[index]
 
