@@ -67,10 +67,7 @@ class ZileanService:
     
     def __search_series(self, series):
         unique_titles = self.__remove_duplicate_titles(series.titles)
-        if series.origin == "JP":
-            clean_titles = series.titlealt
-        else:
-            clean_titles = [self.__clean_title(title) for title in unique_titles]
+        clean_titles = [self.__clean_title(title) for title in unique_titles]
         search_texts = clean_titles.copy()
 
         if hasattr(series, 'season') and hasattr(series, 'episode'):
