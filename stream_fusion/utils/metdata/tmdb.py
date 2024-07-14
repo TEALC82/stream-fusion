@@ -27,12 +27,21 @@ class TMDB(MetadataProvider):
                         languages=self.config['languages']
                     )
                 else:
+                    origin = data["tv_results"][0]["origin_country"][0]
+                    if origin == "JP":
+                        title = self.replace_weird_characters(data["tv_results"][0]["name"]).split(":")
+                        if len(title[0]) == 0:
+                            titles = [self.replace_weird_characters(data["tv_results"][0]["name"])]
+                        else:
+                            titles = [title[0]]
+                    else:
+                        titles = [self.replace_weird_characters(data["tv_results"][0]["name"])]
+
                     result = Series(
                         id=id,
-                        titles=[self.replace_weird_characters(data["tv_results"][0]["name"])],
+                        titles=titles,
                         season="S{:02d}".format(int(full_id[1])),
                         episode="E{:02d}".format(int(full_id[2])),
-                        origin=data["tv_results"][0]["origin_country"][0],
                         languages=self.config['languages']
                     )
             else:
@@ -42,5 +51,4 @@ class TMDB(MetadataProvider):
                     result.titles.append(self.replace_weird_characters(data["tv_results"][0]["name"]))
 
         self.logger.info("Got metadata for " + type + " with id " + id)
-        self.logger.info(">> Origin : " + result.origin + " <<")
         return result

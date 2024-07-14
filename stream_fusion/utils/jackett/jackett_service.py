@@ -25,10 +25,7 @@ class JackettService:
         self.__session = requests.Session()
 
     def search(self, media):
-        parts = media.titles[0].split(':')
-        newtitle = parts[0]
-
-        self.logger.info("Started Jackett search for " + media.type + " " + newtitle + " [" + media.titles[0] + "]")
+        self.logger.info("Started Jackett search for " + media.type + " " + media.titles[0])
 
         indexers = self.__get_indexers()
         threads = []
@@ -143,17 +140,11 @@ class JackettService:
         results = []
 
         for index, lang in enumerate(languages):
-            if series.origin == "JP":
-                parts = titles[index].split(':')
-                newtitle = parts[0]
-            else:
-                newtitle = titles[index]
-
             params = {
                 'apikey': self.__api_key,
                 't': 'tvsearch',
                 'cat': '5000',
-                'q': newtitle,
+                'q': titles[index],
             }
 
             if has_imdb_search_capability:
