@@ -122,8 +122,8 @@ def remove_non_matching_title(items, titles):
     
     for item in items:
         for cleaned_title in cleaned_titles:
-            logger.debug("\ncleaned_titles: " + cleaned_title)
-            logger.debug("parsed_title: " + item.parsed_data.parsed_title + "\n")
+            logger.debug("cleaned_title: " + cleaned_title)
+            logger.debug("parsed_title: " + item.parsed_data.parsed_title)
             if title_match(cleaned_title, item.parsed_data.parsed_title):
                 filtered_items.append(item)
                 break

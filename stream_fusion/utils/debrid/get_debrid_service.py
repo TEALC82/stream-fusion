@@ -3,6 +3,7 @@ from fastapi.exceptions import HTTPException
 from stream_fusion.utils.debrid.alldebrid import AllDebrid
 from stream_fusion.utils.debrid.premiumize import Premiumize
 from stream_fusion.utils.debrid.realdebrid import RealDebrid
+from stream_fusion.utils.debrid.torbox import TorBox
 
 
 def get_debrid_service(config):
@@ -13,6 +14,8 @@ def get_debrid_service(config):
         debrid_service = AllDebrid(config)
     elif service_name == "Premiumize":
         debrid_service = Premiumize(config)
+    elif service_name == "TorBox":
+        debrid_service = TorBox(config)
     else:
         raise HTTPException(status_code=500, detail="Invalid service configuration.")
 
