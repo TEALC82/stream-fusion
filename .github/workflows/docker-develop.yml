@@ -1,10 +1,10 @@
 name: Build develop-type-vf
 
 on:
-  workflow_dispatch:
-  #push:
-    #branches:
-      #- TEALC
+  #workflow_dispatch:
+  push:
+    branches:
+      - develop-type_VF
 
 jobs:
   build:
